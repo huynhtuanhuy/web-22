@@ -2,6 +2,12 @@ const express = require('express');
 
 const app = express();
 
+// middleware
+// http://localhost:6969/....
+// http://localhost:6969/public/....
+// http://localhost:6969/public/test.txt
+app.use('/', express.static('html&css'));
+
 // Router
 app.get('/', (request, response) => {
 	const data = {
@@ -13,9 +19,13 @@ app.get('/', (request, response) => {
 	response.sendFile(__dirname + '/html&css/index.html');
 });
 
+// app.get('/style.css', (request, response) => {
+// 	response.sendFile(__dirname + '/html&css/style.css');
+// });
+
 // Router
-app.get('/about', (request, response) => {
-	response.send("About");
+app.get('/about/test', (request, response) => {
+	response.sendFile(__dirname + '/html&css.1/index.html');
 });
 
 // http://localhost:6969

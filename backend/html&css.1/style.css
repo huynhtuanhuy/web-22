@@ -1,0 +1,32 @@
+h1 {
+	color: #ff0000;
+}
+
+#top {
+	color: #00ffff;
+}
+
+.text-red,
+ul > li {
+	color: #ff0000;
+}
+
+h2.text-red {
+	font-size: 20px;
+}
+
+ul li {
+	color: #00ffff;
+}
+
+/* img:hover {
+	width: 100px;
+} */
+
+p.text-red {
+	background-color: black;
+	background-image: url('https://genknews.genkcdn.vn/2018/2/27/1942078513347640499722577136745252294575015n-15197280986121440221807.jpg');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
