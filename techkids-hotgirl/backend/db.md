@@ -1,0 +1,15 @@
+- Users:
+	- username: string
+	- name: string
+	- password: string
+	- avatar: string
+	- email: string
+- Posts:
+	- like: number
+	- view: number
+	- image: string
+	- caption: string
+	- comments: Array[string]
+	- date: date
+	- author: string
+	- title: string
