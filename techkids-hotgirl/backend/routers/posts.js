@@ -7,8 +7,8 @@ const PostModel = require('../models/post');
 
 // Get many
 PostRouter.get('/', (req, res) => {
-	const page = req.query.page || 1;
-	const perPage = req.query.perPage || 5;
+	const page = Number(req.query.page) || 1;
+	const perPage = Number(req.query.perPage) || 5;
 
 	PostModel.count({}, (err, totalPost) => {
 		if(err) res.send({ success: false, err })

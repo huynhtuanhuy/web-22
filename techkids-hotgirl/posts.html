@@ -5,8 +5,61 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
+	<script
+		src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
 </head>
 <body>
-	
+	<div id="post-list"></div>
+	<div id="paginate"></div>
+
+	<script>
+		$.ajax({
+			url: 'http://localhost:6789/api/posts?page=1',
+			method: 'GET',
+			success: function(data) {
+				console.log(data);
+				for(let i = 0; i < data.data.length; i++) {
+					$('#post-list').append(`
+						<div>
+							<img src="${data.data[i].image}" />
+							<p>${data.data[i].title}</p>
+						</div>
+					`);
+				}
+
+				const pages = Math.ceil(data.totalPost/5);
+
+				for(let i = 1; i <= pages; i++) {
+					$('#paginate').append(`
+						<button data-page="${i}">
+							${i}
+						</button>
+					`);
+				}
+			}
+		});
+
+		$(document).on('click', 'button', function() {
+			const page = $(this).attr('data-page');
+
+			$.ajax({
+				url: 'http://localhost:6789/api/posts?page='+page,
+				method: 'GET',
+				success: function(data) {
+					$('#post-list').empty();
+					for(let i = 0; i < data.data.length; i++) {
+						$('#post-list').append(`
+							<div>
+								<img src="${data.data[i].image}" />
+								<p>${data.data[i].title}</p>
+							</div>
+						`);
+					}
+				}
+			});
+		});
+	</script>
 </body>
 </html>
