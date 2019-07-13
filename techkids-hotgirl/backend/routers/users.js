@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const UserRouter = express.Router();
 
 const UserModel = require('../models/users');
@@ -28,6 +29,9 @@ UserRouter.get('/:id', (req, res) => {
 
 // Create
 UserRouter.post('/', (req, res) => {
+	const hashPassword = bcrypt.hashSync(req.body.password, 12);
+	req.body.password = hashPassword;
+
 	UserModel.create(req.body, (err, userCreated) => {
 		if(err) res.send({ success: false, err })
 		else res.send({ success: true, data: userCreated });

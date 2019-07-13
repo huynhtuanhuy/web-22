@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const UserApiRouter = require('./routers/users');
 const PostApiRouter = require('./routers/posts');
+const AuthApiRouter = require('./routers/auth');
 
 const app = express();
 
@@ -21,6 +22,7 @@ mongoose.connect(
 		else console.log("DB connect success!");
 	});
 
+app.use('/api/auth', AuthApiRouter);
 app.use('/api/users', UserApiRouter);
 app.use('/api/posts', PostApiRouter);
 
