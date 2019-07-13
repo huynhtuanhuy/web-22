@@ -7,7 +7,7 @@ const UserModel = require('../models/users');
 AuthRouter.post('/login', (req, res) => {
     const username = req.body.username;
 	const password = req.body.password;
-	$('[name=username]')
+	
 	if(password && username) {
 		UserModel.findOne({ username }, (err, userFound) => {
 			if(err) res.send({ success: false, err })

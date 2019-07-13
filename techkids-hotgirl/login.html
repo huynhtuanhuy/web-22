@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"
+        ></script>
+    </head>
+    <body>
+        <form id="login">
+            <input type="text" name="username" id="username" />
+            <input type="password" name="password" id="password" />
+			<p id="err"></p>
+			<button>Login</button>
+		</form>
+		<div id="user"></div>
+
+        <script>
+			$('#login').on('submit', function(e) {
+				e.preventDefault();
+
+				const username = $('#username').val();
+				const password = $('#password').val();
+
+				$.ajax({
+					url: 'http://localhost:6789/api/auth/login',
+					method: 'POST',
+					data: {
+						username,
+						password
+					},
+					success: function(data) {
+						console.log(data);
+						if (!data.success && data.err) $('#err').text(data.err)
+						else if(data.username) {
+							$('#err').text('');
+							$('#login').hide();
+							$('#user').text(data.username);
+						};
+					},
+					error: function(err) {
+
+					}
+				});
+			});
+		</script>
+    </body>
+</html>
