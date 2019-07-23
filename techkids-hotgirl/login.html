@@ -21,6 +21,28 @@
 		<div id="user"></div>
 
         <script>
+			const access_token = window.localStorage.getItem('access_token');
+
+			if (access_token) {
+				$('#login').hide();
+
+				$.ajax({
+					url: 'http://localhost:6789/api/auth/me',
+					type: 'GET',
+					headers: {
+						Authentication: access_token
+					},
+					success: function(data) {
+						if(data.success && data.user) {
+							$('#user').text(data.user.username);
+						}
+					},
+					error: function(err) {
+
+					}
+				});
+			}
+
 			$('#login').on('submit', function(e) {
 				e.preventDefault();
 
@@ -29,7 +51,7 @@
 
 				$.ajax({
 					url: 'http://localhost:6789/api/auth/login',
-					method: 'POST',
+					type: 'POST',
 					data: {
 						username,
 						password
@@ -41,6 +63,7 @@
 							$('#err').text('');
 							$('#login').hide();
 							$('#user').text(data.username);
+							window.localStorage.setItem('access_token', data.token);
 						};
 					},
 					error: function(err) {
